@@ -52,7 +52,7 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className="flex size-10 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-rose lg:hidden"
+          className="flex size-11 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-rose focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose lg:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
           onClick={() => setOpen((v) => !v)}
@@ -66,7 +66,8 @@ export function SiteHeader() {
         id="mobile-nav"
         aria-label="Mobile"
         hidden={!open}
-        className="border-t border-border/70 bg-ivory lg:hidden"
+        onKeyDown={(e) => e.key === 'Escape' && setOpen(false)}
+        className="max-h-[calc(100dvh-4.25rem)] overflow-y-auto border-t border-border/70 bg-ivory lg:hidden"
       >
         <ul className="mx-auto flex max-w-6xl flex-col px-6 py-4">
           {navLinks.map((link) => (

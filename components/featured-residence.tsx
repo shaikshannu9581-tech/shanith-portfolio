@@ -15,10 +15,25 @@ const deliverables = [
   'Final architectural and project-management presentation',
 ]
 
-const progressSlots = [
-  { icon: PencilRuler, title: 'Architectural drawings', note: 'Plans, elevations and sections will appear here.' },
-  { icon: Box, title: 'Model screenshots', note: 'Revit 3D model views will appear here.' },
-  { icon: FileText, title: 'Project documents', note: 'Programme, risk and safety documents will appear here.' },
+const workstreams = [
+  {
+    icon: PencilRuler,
+    title: 'AutoCAD drawings',
+    status: 'Planned',
+    items: ['Ground- and first-floor plans', 'Elevations and sections', 'Drawing schedules'],
+  },
+  {
+    icon: Box,
+    title: 'Revit model',
+    status: 'Planned',
+    items: ['3D building model', 'Materials and finishes concept', 'Basic quantity take-off'],
+  },
+  {
+    icon: FileText,
+    title: 'Project documentation',
+    status: 'Planned',
+    items: ['MS Project construction programme', 'Health and safety documentation', 'Risk assessment'],
+  },
 ]
 
 export function FeaturedResidence() {
@@ -97,18 +112,27 @@ export function FeaturedResidence() {
               Project <em className="font-normal text-rose-deep">progress</em>
             </h4>
             <p className="mt-3 max-w-2xl leading-relaxed text-muted-foreground">
-              Real drawings, model screenshots and project documents will be added here as the case study develops.
+              No drawings, models or documents have been published yet. Each workstream will be shared here once it is
+              complete.
             </p>
-            <ul className="mt-8 grid gap-5 sm:grid-cols-3">
-              {progressSlots.map(({ icon: Icon, title, note }) => (
-                <li
-                  key={title}
-                  className="flex aspect-[4/3] flex-col items-center justify-center gap-3 rounded-md border border-dashed border-gold/70 bg-ivory/70 p-6 text-center"
-                >
-                  <Icon aria-hidden="true" className="size-6 text-rose-deep" strokeWidth={1.25} />
-                  <p className="font-serif text-lg font-medium">{title}</p>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{note}</p>
-                  <p className="text-[0.6rem] uppercase tracking-[0.2em] text-plum">Awaiting upload</p>
+            <ul className="mt-8 grid gap-5 md:grid-cols-3">
+              {workstreams.map(({ icon: Icon, title, status, items }) => (
+                <li key={title} className="flex flex-col gap-4 rounded-md border border-gold/60 bg-ivory/80 p-6">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="flex size-10 items-center justify-center rounded-full border border-gold/70 bg-blush/60">
+                      <Icon aria-hidden="true" className="size-5 text-rose-deep" strokeWidth={1.25} />
+                    </span>
+                    <StatusBadge>{status}</StatusBadge>
+                  </div>
+                  <p className="font-serif text-xl font-medium">{title}</p>
+                  <ul className="flex flex-col gap-2 border-t border-border pt-4 text-sm text-muted-foreground">
+                    {items.map((item) => (
+                      <li key={item} className="flex items-start gap-2">
+                        <span aria-hidden="true" className="mt-2 size-1 shrink-0 rounded-full bg-gold" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
                 </li>
               ))}
             </ul>

@@ -74,24 +74,14 @@ export function Projects() {
                       </span>
                     </div>
                     <div className="flex flex-col justify-center p-8 md:p-12">
-                      <div className="flex flex-wrap items-center gap-3">
-                        <p className="text-[0.7rem] font-medium uppercase tracking-[0.25em] text-rose-deep">
-                          {String(i + 1).padStart(2, '0')} — {p.type}
-                        </p>
-                        {p.inDevelopment && (
-                          <span className="rounded-full border border-gold bg-ivory px-3 py-1 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-plum">
-                            In Development
-                          </span>
-                        )}
-                      </div>
+                      <p className="text-[0.7rem] font-medium uppercase tracking-[0.25em] text-rose-deep">
+                        {String(i + 1).padStart(2, '0')} — {p.type}
+                      </p>
                       <h3 className="mt-4 font-serif text-3xl font-medium leading-tight text-balance md:text-4xl">
                         {p.title}
                       </h3>
                       <span aria-hidden="true" className="mt-5 block h-px w-12 bg-gold transition-all duration-500 group-hover:w-24" />
                       <p className="mt-5 leading-relaxed text-muted-foreground">{p.description}</p>
-                      {p.inDevelopment && (
-                        <p className="mt-4 font-serif text-lg italic text-rose-deep">Coming soon — work in progress.</p>
-                      )}
                     </div>
                   </article>
                 </Reveal>

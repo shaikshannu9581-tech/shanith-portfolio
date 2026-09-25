@@ -1,29 +1,15 @@
-import { ArrowUpRight, Mail, Phone, UserRound } from 'lucide-react'
+import { ArrowUpRight, Mail, UserRound } from 'lucide-react'
 import { Reveal } from '@/components/reveal'
 import { SectionHeading } from '@/components/section-heading'
 import { FloralCorner } from '@/components/botanical'
 import { contactDetails } from '@/lib/site-config'
 
+const buttonBase =
+  'inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-medium tracking-wide transition-all focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rose'
+
 export function Contact() {
   const { email, phone, linkedinUrl } = contactDetails
-
-  const links = [
-    email && { label: 'Email', value: email, href: `mailto:${email}`, icon: Mail, external: false },
-    phone && { label: 'Telephone', value: phone, href: `tel:${phone.replace(/\s+/g, '')}`, icon: Phone, external: false },
-    linkedinUrl && {
-      label: 'LinkedIn',
-      value: linkedinUrl.replace(/^https?:\/\/(www\.)?/, ''),
-      href: linkedinUrl,
-      icon: UserRound,
-      external: true,
-    },
-  ].filter(Boolean) as {
-    label: string
-    value: string
-    href: string
-    icon: typeof Mail
-    external: boolean
-  }[]
+  const hasAnyLink = Boolean(email || linkedinUrl || phone)
 
   return (
     <section id="contact" aria-labelledby="contact-title" className="relative overflow-hidden">
@@ -36,29 +22,47 @@ export function Contact() {
           </p>
         </Reveal>
 
-        {links.length > 0 && (
-          <Reveal delay={120}>
-            <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {links.map(({ label, value, href, icon: Icon, external }) => (
-                <li key={label}>
+        <Reveal delay={120}>
+          <div className="mx-auto mt-12 max-w-2xl rounded-lg border border-gold/70 bg-card px-6 py-10 md:px-12">
+            {hasAnyLink ? (
+              <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+                {email && (
                   <a
-                    href={href}
-                    {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                    className="group flex h-full flex-col items-center gap-3 rounded-lg border border-gold/70 bg-card p-8 transition-all hover:-translate-y-1 hover:bg-blush/50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rose"
+                    href={`mailto:${email}`}
+                    className={`${buttonBase} w-full bg-primary text-primary-foreground hover:-translate-y-0.5 hover:bg-rose-deep sm:w-auto`}
                   >
-                    <Icon className="size-5 text-rose-deep" aria-hidden="true" />
-                    <span className="text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground">{label}</span>
-                    <span className="flex items-center gap-1 break-all font-serif text-lg">
-                      {value}
-                      {external && <ArrowUpRight className="size-4 shrink-0" aria-hidden="true" />}
-                    </span>
-                    {external && <span className="sr-only">(opens in a new tab)</span>}
+                    <Mail className="size-4" aria-hidden="true" />
+                    Email Me
                   </a>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        )}
+                )}
+                {linkedinUrl && (
+                  <a
+                    href={linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${buttonBase} w-full border border-gold bg-ivory text-foreground hover:-translate-y-0.5 hover:bg-blush sm:w-auto`}
+                  >
+                    <UserRound className="size-4" aria-hidden="true" />
+                    LinkedIn
+                    <ArrowUpRight className="size-4" aria-hidden="true" />
+                    <span className="sr-only">(opens in a new tab)</span>
+                  </a>
+                )}
+                {phone && (
+                  <a
+                    href={`tel:${phone.replace(/\s+/g, '')}`}
+                    className={`${buttonBase} w-full border border-border bg-ivory text-foreground hover:bg-blush sm:w-auto`}
+                  >
+                    {phone}
+                  </a>
+                )}
+              </div>
+            ) : (
+              <p className="font-serif text-xl italic text-rose-deep">Contact details are being finalised.</p>
+            )}
+            {email && <p className="mt-6 break-all text-sm text-muted-foreground">{email}</p>}
+          </div>
+        </Reveal>
       </div>
     </section>
   )
