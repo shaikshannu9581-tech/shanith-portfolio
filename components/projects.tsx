@@ -1,3 +1,6 @@
+import { FeaturedResidence } from '@/components/featured-residence'
+import { FrontProofProject } from '@/components/frontproof-project'
+import { ProjectsConnect } from '@/components/projects-connect'
 import { Reveal } from '@/components/reveal'
 import { SectionHeading } from '@/components/section-heading'
 import { cn } from '@/lib/utils'
@@ -20,15 +23,6 @@ const projects = [
     alt: 'Illustrative image: a restored historic brick building adapted into a light-filled interior',
     inDevelopment: false,
   },
-  {
-    title: 'Two-Storey Residential Design',
-    type: 'Portfolio Project',
-    description:
-      'A proposed residential design and project management case study integrating architectural drawings, BIM, scheduling and construction documentation.',
-    image: '/images/work-residential-900.webp',
-    alt: 'Illustrative image: a watercolour concept sketch of a two-storey house',
-    inDevelopment: true,
-  },
 ]
 
 export function Projects() {
@@ -37,6 +31,19 @@ export function Projects() {
       <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
         <Reveal>
           <SectionHeading id="projects-title" label="Selected work" title="Selected work &" italic="academic projects" />
+        </Reveal>
+
+        <div className="flex flex-col gap-16 md:gap-24">
+          <FeaturedResidence />
+          <FrontProofProject />
+          <ProjectsConnect />
+        </div>
+
+        <Reveal>
+          <h3 className="mt-24 mb-10 flex items-center gap-3 text-[0.7rem] font-medium uppercase tracking-[0.3em] text-rose-deep md:mt-32">
+            <span aria-hidden="true" className="h-px w-8 bg-gold" />
+            Academic projects
+          </h3>
         </Reveal>
 
         <ul className="flex flex-col gap-10 md:gap-14">
