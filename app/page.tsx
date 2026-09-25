@@ -1,17 +1,19 @@
 import { SiteHeader } from '@/components/site-header'
 import { Hero } from '@/components/hero'
 import { About } from '@/components/about'
+import { Experience } from '@/components/experience'
 import { Education } from '@/components/education'
-import { Skills } from '@/components/skills'
 import { Projects } from '@/components/projects'
+import { Skills } from '@/components/skills'
 import { Contact } from '@/components/contact'
+import { SiteFooter } from '@/components/site-footer'
 
 export default function Page() {
   return (
     <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
       >
         Skip to content
       </a>
@@ -19,17 +21,13 @@ export default function Page() {
       <main id="main">
         <Hero />
         <About />
+        <Experience />
         <Education />
-        <Skills />
         <Projects />
+        <Skills />
         <Contact />
       </main>
-      <footer className="border-t border-primary-foreground/10 bg-primary text-primary-foreground/60">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-8 text-sm md:flex-row md:justify-between">
-          <p>&copy; {new Date().getFullYear()} Shanith Shaik</p>
-          <p>Images on this site are illustrative only.</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   )
 }

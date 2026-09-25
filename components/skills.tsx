@@ -1,45 +1,48 @@
 import { Reveal } from '@/components/reveal'
 import { SectionHeading } from '@/components/section-heading'
+import { BotanicalDivider } from '@/components/botanical'
 
-const groups = [
+const categories = [
   {
-    title: 'Design & Drawing',
-    skills: ['AutoCAD 2D', 'Revit (basic)', 'BIM awareness'],
+    name: 'Design & BIM',
+    skills: ['AutoCAD 2D', 'Basic Revit', 'BIM Awareness'],
   },
   {
-    title: 'Planning & Scheduling',
-    skills: ['MS Project', 'Primavera P6 (basic)', 'Microsoft Excel'],
+    name: 'Planning & Management',
+    skills: ['MS Project', 'Basic Primavera P6', 'Microsoft Excel', 'Project Coordination'],
   },
   {
-    title: 'Project Delivery',
-    skills: ['Construction documentation', 'Health and safety', 'Project coordination'],
+    name: 'Construction Knowledge',
+    skills: ['Construction Health & Safety', 'Construction Documentation'],
   },
 ]
 
 export function Skills() {
   return (
-    <section aria-labelledby="skills-title" id="skills" className="border-t border-border">
+    <section id="skills" aria-labelledby="skills-title" className="bg-blush/40">
       <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
         <Reveal>
-          <SectionHeading id="skills-title" index="03" eyebrow="Technical Skills" title="Tools & competencies" />
+          <SectionHeading id="skills-title" label="Technical expertise" title="Skills, tools &" italic="expertise" align="center" />
         </Reveal>
-        <div className="grid gap-px overflow-hidden border border-border bg-border md:grid-cols-3">
-          {groups.map((group, i) => (
-            <Reveal key={group.title} delay={i * 120} className="bg-background p-8">
-              <h3 className="text-xs font-medium uppercase tracking-[0.25em] text-gold-ink">
-                {group.title}
-              </h3>
-              <ul className="mt-6 flex flex-col gap-4">
-                {group.skills.map((skill) => (
-                  <li key={skill} className="flex items-baseline gap-3 font-serif text-xl">
-                    <span aria-hidden="true" className="h-px w-4 shrink-0 translate-y-[-4px] bg-gold" />
-                    {skill}
-                  </li>
-                ))}
-              </ul>
+        <div className="grid gap-6 md:grid-cols-3">
+          {categories.map((c, i) => (
+            <Reveal key={c.name} delay={i * 100}>
+              <article className="h-full rounded-lg border border-gold/70 bg-ivory p-8 transition-transform duration-500 hover:-translate-y-1">
+                <p className="font-serif text-sm italic text-rose-deep">{String(i + 1).padStart(2, '0')}</p>
+                <h3 className="mt-2 font-serif text-2xl font-medium">{c.name}</h3>
+                <ul className="mt-6 flex flex-col">
+                  {c.skills.map((s) => (
+                    <li key={s} className="flex items-center gap-3 border-t border-border py-3 text-sm">
+                      <span aria-hidden="true" className="size-1.5 rotate-45 bg-rose" />
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+              </article>
             </Reveal>
           ))}
         </div>
+        <BotanicalDivider className="mt-16" />
       </div>
     </section>
   )

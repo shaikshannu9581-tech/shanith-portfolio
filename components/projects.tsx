@@ -1,121 +1,96 @@
-import Image from 'next/image'
 import { Reveal } from '@/components/reveal'
 import { SectionHeading } from '@/components/section-heading'
 import { cn } from '@/lib/utils'
 
-type Project = {
-  label: string
-  type: string
-  title: string
-  description: string
-  tools?: string[]
-  image: string
-  alt: string
-  comingSoon?: boolean
-}
-
-const projects: Project[] = [
+const projects = [
   {
-    label: 'Project A',
+    title: 'Construction Health & Safety: UK and India',
     type: 'MSc Dissertation',
-    title: 'Construction health and safety: UK and India',
     description:
-      'A comparative study of construction health and safety regulations and practices in the UK and India.',
-    image: '/images/site-safety.png',
-    alt: 'Illustrative image of a hard hat and high-visibility vest on documents at a construction site',
+      'A comparative academic study examining construction health and safety regulations and practices in the UK and India.',
+    image: '/images/work-safety-900.webp',
+    alt: 'Illustrative image: a safety helmet and construction drawings on a blush desk',
+    inDevelopment: false,
   },
   {
-    label: 'Project B',
-    type: 'Academic Project — Berlin',
-    title: 'Heritage and adaptive reuse',
-    description: 'An academic project in Berlin exploring heritage and adaptive reuse.',
-    tools: ['AutoCAD', 'Revit', 'MS Project'],
-    image: '/images/heritage-reuse.png',
-    alt: 'Illustrative image of a historic brick building with a modern glass extension',
+    title: 'Heritage & Adaptive Reuse — Berlin',
+    type: 'Academic Applied Project',
+    description: 'An academic project exploring heritage and adaptive reuse, supported by AutoCAD, Revit and MS Project.',
+    image: '/images/work-heritage-900.webp',
+    alt: 'Illustrative image: a restored historic brick building adapted into a light-filled interior',
+    inDevelopment: false,
   },
   {
-    label: 'Project C',
+    title: 'Two-Storey Residential Design',
     type: 'Portfolio Project',
-    title: 'Proposed two-storey residential project',
-    description: 'A proposed two-storey residential portfolio project. Currently in preparation.',
-    image: '/images/residential-concept.png',
-    alt: 'Illustrative conceptual line sketch of a two-storey house',
-    comingSoon: true,
+    description:
+      'A proposed residential design and project management case study integrating architectural drawings, BIM, scheduling and construction documentation.',
+    image: '/images/work-residential-900.webp',
+    alt: 'Illustrative image: a watercolour concept sketch of a two-storey house',
+    inDevelopment: true,
   },
 ]
 
 export function Projects() {
   return (
-    <section aria-labelledby="projects-title" id="projects" className="border-t border-border bg-secondary">
+    <section id="projects" aria-labelledby="projects-title">
       <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
         <Reveal>
-          <SectionHeading id="projects-title" index="04" eyebrow="Academic Projects" title="Selected academic work" />
+          <SectionHeading id="projects-title" label="Selected work" title="Selected work &" italic="academic projects" />
         </Reveal>
-        <ul className="flex flex-col gap-16 md:gap-24">
-          {projects.map((project, i) => (
-            <li key={project.label}>
-              <Reveal>
-                <article className="grid items-center gap-8 md:grid-cols-12 md:gap-12">
-                  <figure className={cn('md:col-span-6', i % 2 === 1 && 'md:order-2 md:col-start-7')}>
-                    <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-                      <Image
-                        src={project.image || '/placeholder.svg'}
-                        alt={project.alt}
-                        fill
-                        sizes="(min-width: 768px) 50vw, 100vw"
-                        className={cn(
-                          'object-cover transition-transform duration-700 hover:scale-[1.03]',
-                          project.comingSoon && 'opacity-70 grayscale-[40%]',
-                        )}
+
+        <ul className="flex flex-col gap-10 md:gap-14">
+          {projects.map((p, i) => {
+            const reversed = i % 2 === 1
+            return (
+              <li key={p.title}>
+                <Reveal>
+                  <article
+                    className={cn(
+                      'group grid overflow-hidden rounded-lg border border-border md:grid-cols-2',
+                      reversed ? 'bg-card' : 'bg-blush/55',
+                    )}
+                  >
+                    <div className={cn('relative overflow-hidden', reversed && 'md:order-2')}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={p.image}
+                        alt={p.alt}
+                        width={900}
+                        height={675}
+                        loading="lazy"
+                        decoding="async"
+                        className="aspect-[4/3] size-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
                       />
-                      {project.comingSoon && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-background/40">
-                          <span className="border border-gold bg-background px-4 py-2 text-xs font-medium uppercase tracking-[0.25em] text-gold-ink">
-                            Coming Soon
+                      <span className="absolute bottom-3 left-3 rounded-full bg-ivory/90 px-3 py-1 text-[0.6rem] uppercase tracking-[0.2em] text-plum">
+                        Illustrative image
+                      </span>
+                    </div>
+                    <div className="flex flex-col justify-center p-8 md:p-12">
+                      <div className="flex flex-wrap items-center gap-3">
+                        <p className="text-[0.7rem] font-medium uppercase tracking-[0.25em] text-rose-deep">
+                          {String(i + 1).padStart(2, '0')} — {p.type}
+                        </p>
+                        {p.inDevelopment && (
+                          <span className="rounded-full border border-gold bg-ivory px-3 py-1 text-[0.65rem] font-medium uppercase tracking-[0.2em] text-plum">
+                            In Development
                           </span>
-                        </div>
+                        )}
+                      </div>
+                      <h3 className="mt-4 font-serif text-3xl font-medium leading-tight text-balance md:text-4xl">
+                        {p.title}
+                      </h3>
+                      <span aria-hidden="true" className="mt-5 block h-px w-12 bg-gold transition-all duration-500 group-hover:w-24" />
+                      <p className="mt-5 leading-relaxed text-muted-foreground">{p.description}</p>
+                      {p.inDevelopment && (
+                        <p className="mt-4 font-serif text-lg italic text-rose-deep">Coming soon — work in progress.</p>
                       )}
                     </div>
-                    <figcaption className="mt-3 text-xs text-muted-foreground">
-                      Illustrative image only — not project output.
-                    </figcaption>
-                  </figure>
-
-                  <div className={cn('md:col-span-5', i % 2 === 1 ? 'md:order-1' : 'md:col-start-8')}>
-                    <p className="flex flex-wrap items-center gap-3 text-xs font-medium uppercase tracking-[0.25em] text-gold-ink">
-                      {project.label}
-                      <span aria-hidden="true" className="h-px w-6 bg-gold" />
-                      {project.type}
-                    </p>
-                    <h3 className="mt-4 font-serif text-3xl font-semibold text-balance md:text-4xl">
-                      {project.title}
-                    </h3>
-                    {project.comingSoon && (
-                      <p className="mt-4 inline-flex items-center gap-2 rounded-sm bg-primary px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-primary-foreground">
-                        Status: Coming Soon
-                      </p>
-                    )}
-                    <p className="mt-4 leading-relaxed text-muted-foreground">{project.description}</p>
-                    {project.tools && (
-                      <div className="mt-6">
-                        <h4 className="sr-only">Tools used</h4>
-                        <ul className="flex flex-wrap gap-2">
-                          {project.tools.map((tool) => (
-                            <li
-                              key={tool}
-                              className="border border-foreground/15 bg-background px-3 py-1 text-sm"
-                            >
-                              {tool}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                </article>
-              </Reveal>
-            </li>
-          ))}
+                  </article>
+                </Reveal>
+              </li>
+            )
+          })}
         </ul>
       </div>
     </section>

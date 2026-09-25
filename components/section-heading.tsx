@@ -1,23 +1,40 @@
+import { cn } from '@/lib/utils'
+
 export function SectionHeading({
   id,
-  index,
-  eyebrow,
+  label,
   title,
+  italic,
+  align = 'left',
+  className,
 }: {
   id: string
-  index: string
-  eyebrow: string
+  label: string
   title: string
+  italic?: string
+  align?: 'left' | 'center'
+  className?: string
 }) {
   return (
-    <div className="mb-12 md:mb-16">
-      <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.25em] text-gold-ink">
-        <span aria-hidden="true">{index}</span>
-        <span aria-hidden="true" className="h-px w-10 bg-gold" />
-        {eyebrow}
+    <div className={cn('mb-12 md:mb-16', align === 'center' && 'text-center', className)}>
+      <p
+        className={cn(
+          'flex items-center gap-3 text-[0.7rem] font-medium uppercase tracking-[0.3em] text-rose-deep',
+          align === 'center' && 'justify-center',
+        )}
+      >
+        <span aria-hidden="true" className="h-px w-8 bg-gold" />
+        {label}
+        {align === 'center' && <span aria-hidden="true" className="h-px w-8 bg-gold" />}
       </p>
-      <h2 id={id} className="mt-4 font-serif text-4xl font-semibold text-balance md:text-5xl">
+      <h2 id={id} className="mt-5 font-serif text-4xl font-medium leading-[1.05] text-balance md:text-6xl">
         {title}
+        {italic && (
+          <>
+            {' '}
+            <em className="font-normal text-rose-deep">{italic}</em>
+          </>
+        )}
       </h2>
     </div>
   )

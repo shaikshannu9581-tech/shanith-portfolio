@@ -1,60 +1,64 @@
-import { Mail, UserRound } from 'lucide-react'
+import { ArrowUpRight, Mail, Phone, UserRound } from 'lucide-react'
 import { Reveal } from '@/components/reveal'
-
-// TODO: Replace these placeholders with real details before publishing.
-const EMAIL = 'your.email@example.com'
-const LINKEDIN_URL = 'https://www.linkedin.com/in/your-profile'
+import { SectionHeading } from '@/components/section-heading'
+import { FloralCorner } from '@/components/botanical'
+import { contactDetails } from '@/lib/site-config'
 
 export function Contact() {
+  const { email, phone, linkedinUrl } = contactDetails
+
+  const links = [
+    email && { label: 'Email', value: email, href: `mailto:${email}`, icon: Mail, external: false },
+    phone && { label: 'Telephone', value: phone, href: `tel:${phone.replace(/\s+/g, '')}`, icon: Phone, external: false },
+    linkedinUrl && {
+      label: 'LinkedIn',
+      value: linkedinUrl.replace(/^https?:\/\/(www\.)?/, ''),
+      href: linkedinUrl,
+      icon: UserRound,
+      external: true,
+    },
+  ].filter(Boolean) as {
+    label: string
+    value: string
+    href: string
+    icon: typeof Mail
+    external: boolean
+  }[]
+
   return (
-    <section aria-labelledby="contact-title" id="contact" className="bg-primary text-primary-foreground">
-      <div className="mx-auto max-w-6xl px-6 py-24 md:py-32">
+    <section id="contact" aria-labelledby="contact-title" className="relative overflow-hidden">
+      <FloralCorner className="absolute -right-12 -top-8 w-56 -scale-x-100 opacity-60 md:w-80" />
+      <div className="relative mx-auto max-w-4xl px-6 py-24 text-center md:py-32">
         <Reveal>
-          <p className="flex items-center gap-3 text-xs font-medium uppercase tracking-[0.25em] text-gold">
-            <span aria-hidden="true">05</span>
-            <span aria-hidden="true" className="h-px w-10 bg-gold" />
-            Contact
-          </p>
-          <h2 id="contact-title" className="mt-4 max-w-2xl font-serif text-4xl font-semibold text-balance md:text-6xl">
-            {"Let's get in touch"}
-          </h2>
-          <p className="mt-6 max-w-xl leading-relaxed text-primary-foreground/75">
-            Open to construction and engineering opportunities in the UK.
+          <SectionHeading id="contact-title" label="Get in touch" title="Let's create something" italic="meaningful" align="center" />
+          <p className="-mt-6 mx-auto max-w-xl leading-relaxed text-muted-foreground">
+            {"Interested in collaborating or discussing an opportunity? I'd love to connect."}
           </p>
         </Reveal>
 
-        <Reveal delay={150} className="mt-12 grid gap-4 md:grid-cols-2">
-          <a
-            href={`mailto:${EMAIL}`}
-            className="group flex items-center gap-4 border border-primary-foreground/20 p-6 transition-colors hover:border-gold"
-          >
-            <Mail className="size-5 text-gold" aria-hidden="true" />
-            <span className="flex flex-col">
-              <span className="text-xs uppercase tracking-[0.2em] text-primary-foreground/60">Email</span>
-              <span className="mt-1 break-all">{EMAIL}</span>
-            </span>
-          </a>
-          <a
-            href={LINKEDIN_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center gap-4 border border-primary-foreground/20 p-6 transition-colors hover:border-gold"
-          >
-            <UserRound className="size-5 text-gold" aria-hidden="true" />
-            <span className="flex flex-col">
-              <span className="text-xs uppercase tracking-[0.2em] text-primary-foreground/60">LinkedIn</span>
-              <span className="mt-1 break-all">linkedin.com/in/your-profile</span>
-            </span>
-            <span className="sr-only">(opens in a new tab)</span>
-          </a>
-        </Reveal>
-
-        <p
-          role="note"
-          className="mt-6 border-l-2 border-gold pl-4 text-sm text-primary-foreground/70"
-        >
-          Placeholder contact details — replace the email address and LinkedIn URL before publishing.
-        </p>
+        {links.length > 0 && (
+          <Reveal delay={120}>
+            <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {links.map(({ label, value, href, icon: Icon, external }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    className="group flex h-full flex-col items-center gap-3 rounded-lg border border-gold/70 bg-card p-8 transition-all hover:-translate-y-1 hover:bg-blush/50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rose"
+                  >
+                    <Icon className="size-5 text-rose-deep" aria-hidden="true" />
+                    <span className="text-[0.7rem] uppercase tracking-[0.25em] text-muted-foreground">{label}</span>
+                    <span className="flex items-center gap-1 break-all font-serif text-lg">
+                      {value}
+                      {external && <ArrowUpRight className="size-4 shrink-0" aria-hidden="true" />}
+                    </span>
+                    {external && <span className="sr-only">(opens in a new tab)</span>}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        )}
       </div>
     </section>
   )

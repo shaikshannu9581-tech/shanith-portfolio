@@ -6,14 +6,15 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['500', '600', '700'],
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
   variable: '--font-cormorant',
 })
 
 export const metadata: Metadata = {
-  title: 'Shanith Shaik | Civil Engineering & Construction Project Management',
+  title: 'Shanith Shaik | The Blush Atelier — Civil Engineering & Construction Project Management',
   description:
-    'Portfolio of Shanith Shaik — MSc Construction Project Management (Sheffield Hallam University) and BTech Civil Engineering (IIIT RGUKT RK Valley). Interested in project coordination, planning and digital construction.',
+    'The Blush Atelier — portfolio of Shanith Shaik. Designing spaces, planning possibilities. MSc Construction Project Management (Sheffield Hallam University) and BTech Civil Engineering (IIIT RGUKT RK Valley).',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: 'light',
-  themeColor: '#f8f5ee',
+  themeColor: '#fff9f5',
 }
 
 export default function RootLayout({
